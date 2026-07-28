@@ -5,6 +5,6 @@
   "description": "Paw Pets — static marketing site",
   "scripts": {
     "build": "echo \"Static site — nothing to build\"",
-    "dev": "npx serve public"
+    "dev": "npx serve ."
   }
 }

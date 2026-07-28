@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paw Pets — Every Paw Has a Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal: #1F6F6C;
+    --teal-dark: #16514F;
+    --teal-tint: #E4F0EF;
+    --coral: #FF6F59;
+    --coral-dark: #E85A44;
+    --cream: #FBF6EC;
+    --charcoal: #2B2620;
+    --grey-text: #6B6357;
+    --grey-bg: #F1ECE1;
+    --black: #1B1712;
+    --white: #FFFFFF;
+    --border: #E7E0D2;
+    --font-display: 'Fredoka', 'Poppins', sans-serif;
+    --font-body: 'Karla', 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family: var(--font-body);
+    color: var(--charcoal);
+    background: var(--cream);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style: none; }
+  button{ font-family: inherit; cursor: pointer; border: none; background: none; }
+  img{ display:block; width:100%; height:100%; object-fit: cover; }
+
+  /* ---------- Global Nav ---------- */
+  .nav-global{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 18px 48px;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+    position: sticky;
+    top:0;
+    z-index: 100;
+  }
+  .nav-left{ display:flex; align-items:center; gap: 14px; }
+  .menu-toggle{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    font-size: 12px;
+    color: var(--charcoal);
+  }
+  .menu-toggle .bars{ display:flex; flex-direction:column; gap:4px; margin-bottom:2px; }
+  .menu-toggle .bars span{ width:22px; height:2.5px; background: var(--charcoal); border-radius:2px; }
+  .logo{
+    font-family: var(--font-display);
+    font-weight:700;
+    font-size:26px;
+    color: var(--teal);
+    letter-spacing: -0.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .logo .paw{ font-size:22px; }
+  .nav-right{ display:flex; align-items:center; gap: 36px; font-size:15px; font-weight:500; }
+  .nav-right .highlight{ color: var(--coral); }
+  .nav-right .caret{ font-size:10px; margin-left:4px; opacity:0.6; }
+  .icon-btn{ display:flex; align-items:center; justify-content:center; width:20px; }
+
+  /* ---------- Sub Nav ---------- */
+  .nav-sub{
+    display:flex;
+    align-items:center;
+    gap: 38px;
+    padding: 16px 48px;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+    font-size: 16px;
+    overflow-x:auto;
+    position: sticky;
+    top: 65px;
+    z-index: 99;
+  }
+  .nav-sub a{ display:flex; align-items:center; gap:6px; white-space:nowrap; color: var(--charcoal); font-weight:500; }
+  .nav-sub a.active{ font-weight:700; color: var(--charcoal); }
+  .nav-sub a.current-section{ color: var(--coral-dark); font-weight:600; }
+  .badge-new{
+    background: #FFE4DE;
+    color: var(--coral-dark);
+    font-size:12px;
+    font-weight:600;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position: relative;
+    background: linear-gradient(135deg, #2A8B87 0%, #1F6F6C 45%, #175957 100%);
+    min-height: 560px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    padding: 60px 24px 0;
+  }
+  .hero::before{
+    content:"🐾";
+    position:absolute;
+    font-size: 380px;
+    opacity: 0.06;
+    top: -80px;
+    right: -60px;
+    transform: rotate(18deg);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"🐾";
+    position:absolute;
+    font-size: 220px;
+    opacity: 0.05;
+    bottom: -60px;
+    left: -40px;
+    transform: rotate(-24deg);
+    pointer-events:none;
+  }
+  .hero-content{ position:relative; z-index:2; max-width: 720px; }
+  .hero-eyebrow{
+    color: #B9E3D8;
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size: 62px;
+    color: var(--white);
+    letter-spacing: -1px;
+    margin-bottom: 34px;
+  }
+  .hero-cta{
+    display:inline-block;
+    background: var(--coral);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size: 17px;
+    padding: 16px 34px;
+    border-radius: 999px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .hero-cta:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.22); }
+
+  .hero-photo-strip{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width: 1100px;
+    height: 220px;
+    margin-top: 44px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .hero-photo-strip img{ object-position: top; border-radius: 12px 12px 0 0; }
+
+  /* ---------- Section shared ---------- */
+  .section{ padding: 96px 48px; }
+  .eyebrow{
+    font-size:14px;
+    font-weight:700;
+    color: var(--coral-dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .section-heading{
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size: 40px;
+    letter-spacing: -0.5px;
+    max-width: 640px;
+    margin-bottom: 16px;
+  }
+  .section-sub{
+    color: var(--grey-text);
+    font-size: 17px;
+    max-width: 560px;
+    margin-bottom: 56px;
+  }
+
+  /* ---------- Pillar Card Grid ---------- */
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .card{ display:flex; flex-direction:column; }
+  .card-image{ width:100%; aspect-ratio: 4/3; overflow:hidden; background: var(--grey-bg); border-radius: 16px; }
+  .card-image img{ transition: transform 0.4s ease; }
+  .card:hover .card-image img{ transform: scale(1.05); }
+  .card h3{
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size: 25px;
+    line-height:1.25;
+    margin: 24px 0 12px;
+  }
+  .card p{ color: var(--grey-text); font-size: 15.5px; line-height:1.65; }
+
+  /* ---------- Stats band ---------- */
+  .stats-band{
+    background: var(--teal-tint);
+    padding: 80px 48px;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align:center;
+  }
+  .stat .num{
+    font-family: var(--font-display);
+    font-weight:700;
+    font-size: 44px;
+    color: var(--teal-dark);
+    letter-spacing:-1px;
+  }
+  .stat .label{ color: var(--charcoal); font-size:15px; margin-top:8px; }
+
+  /* ---------- Pillar detail rows ---------- */
+  .pillar-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items:center;
+    padding: 88px 48px;
+    border-top: 1px solid var(--border);
+  }
+  .pillar-row.reverse .pillar-text{ order:2; }
+  .pillar-row.reverse .pillar-image{ order:1; }
+  .pillar-tag{
+    display:inline-block;
+    font-size:13px;
+    font-weight:700;
+    color: var(--teal-dark);
+    background: var(--teal-tint);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .pillar-text h2{
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size: 33px;
+    letter-spacing:-0.5px;
+    margin-bottom:18px;
+    line-height:1.25;
+  }
+  .pillar-text p{ color: var(--grey-text); font-size:16px; margin-bottom: 26px; }
+  .pillar-link{ font-weight:700; color: var(--coral-dark); display:inline-flex; align-items:center; gap:6px; }
+  .pillar-image{ width:100%; aspect-ratio: 4/3; border-radius:16px; overflow:hidden; background: var(--grey-bg); }
+
+  /* ---------- Report / donate CTA band ---------- */
+  .report-band{
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 90px 48px;
+    text-align:center;
+  }
+  .report-band .eyebrow{ color: #FFA995; }
+  .report-band h2{
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size: 38px;
+    max-width: 620px;
+    margin: 0 auto 32px;
+    letter-spacing:-0.5px;
+  }
+  .report-cta{
+    display:inline-block;
+    background: var(--teal);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size:16px;
+    padding: 15px 32px;
+    border-radius: 999px;
+  }
+
+  /* ---------- Footer ---------- */
+  .footer-top{
+    background: var(--grey-bg);
+    padding: 64px 48px;
+    display:grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+  .footer-follow h4{ font-size:16px; font-weight:700; margin-bottom:18px; }
+  .social-row{ display:flex; gap:10px; margin-bottom: 28px; }
+  .social-row a{
+    width:34px; height:34px; border-radius:50%;
+    background: var(--black); color:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; font-weight:600;
+  }
+  .country-select{
+    display:inline-flex; align-items:center; gap:10px;
+    background: var(--white); border:1px solid var(--border);
+    padding: 10px 16px; border-radius: 999px; font-size:14px; font-weight:500;
+  }
+  .footer-col h5{ font-size:13px; font-weight:700; color: var(--charcoal); margin-bottom: 18px; text-transform:uppercase; letter-spacing:0.5px; }
+  .footer-col ul li{ margin-bottom: 14px; }
+  .footer-col ul li a{ font-size:14.5px; color: var(--grey-text); }
+  .footer-col ul li a:hover{ color: var(--charcoal); }
+
+  .footer-bottom{
+    background: var(--black);
+    color: var(--white);
+    padding: 26px 48px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 14px;
+  }
+  .footer-legal a{ margin-right: 18px; opacity:0.9; }
+  .footer-legal a:hover{ opacity:1; text-decoration:underline; }
+  .store-badges{ display:flex; gap:12px; }
+  .store-badge{
+    background: var(--black);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size:12px;
+    display:flex;
+    flex-direction:column;
+    line-height:1.2;
+  }
+  .store-badge b{ font-size:14px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px){
+    .nav-global, .nav-sub{ padding: 16px 24px; }
+    .nav-right{ gap:20px; font-size:14px; }
+    .hero h1{ font-size: 40px; }
+    .section{ padding: 64px 24px; }
+    .card-grid{ grid-template-columns: 1fr; }
+    .stats-band{ grid-template-columns: repeat(2,1fr); padding: 56px 24px; }
+    .pillar-row{ grid-template-columns: 1fr; gap:32px; padding: 56px 24px; }
+    .pillar-row.reverse .pillar-text{ order:1; }
+    .pillar-row.reverse .pillar-image{ order:2; }
+    .footer-top{ grid-template-columns: 1fr 1fr; padding: 48px 24px; }
+    .footer-bottom{ padding: 24px; justify-content:center; text-align:center; }
+  }
+  @media (max-width: 560px){
+    .nav-sub{ gap:22px; }
+    .nav-right{ gap:14px; }
+    .hero h1{ font-size: 30px; }
+    .footer-top{ grid-template-columns: 1fr; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--teal-dark); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+  <!-- Global Nav -->
+  <nav class="nav-global">
+    <div class="nav-left">
+      <button class="menu-toggle" aria-label="Open menu">
+        <span class="bars"><span></span><span></span><span></span></span>
+        Menu
+      </button>
+      <div class="logo"><span class="paw">🐾</span> Paw Pets</div>
+    </div>
+    <div class="nav-right">
+      <a href="#">Adopt</a>
+      <a href="#">Partner With Us <span class="caret">▾</span></a>
+      <a href="#">Help Centre</a>
+      <button class="icon-btn" aria-label="Search">🔍</button>
+    </div>
+  </nav>
+
+  <!-- Sub Nav -->
+  <div class="nav-sub">
+    <a href="#" class="active">Our Mission</a>
+    <a href="#">Shelters <span class="caret">▾</span></a>
+    <a href="#">Foster Network <span class="caret">▾</span></a>
+    <a href="#" class="current-section">Wellness <span class="caret">▾</span></a>
+    <a href="#">Community <span class="caret">▾</span></a>
+    <a href="#">Governance <span class="caret">▾</span></a>
+    <a href="#">Our Partners <span class="badge-new">New</span></a>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Paw Pets Mission</div>
+      <h1>Every Paw Has a Story</h1>
+      <a href="#report" class="hero-cta">Read Our 2025 Impact Report</a>
+    </div>
+    <div class="hero-photo-strip">
+      <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=1200&auto=format&fit=crop" alt="Volunteer with rescued dogs">
+    </div>
+  </header>
+
+  <!-- Pillar Card Grid -->
+  <section class="section" aria-label="Our focus areas">
+    <div class="eyebrow">Our Focus Areas</div>
+    <h2 class="section-heading">Building a kinder path for every animal</h2>
+    <p class="section-sub">From shelters to foster homes and vet clinics, here's how we're working towards a future where every pet finds a safe, loving home.</p>
+
+    <div class="card-grid">
+      <article class="card">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800&auto=format&fit=crop" alt="Dog ready for adoption">
+        </div>
+        <h3>Adoption Ready</h3>
+        <p>We match rescued pets with loving families through home visits, behaviour support, and lifetime adoption follow-ups.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop" alt="Foster family with a cat">
+        </div>
+        <h3>Foster Network</h3>
+        <p>Paw Pets equips everyday families to foster animals in need, bridging the gap between rescue and forever home.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?q=80&w=800&auto=format&fit=crop" alt="Vet examining a puppy">
+        </div>
+        <h3>Vet Care Fund</h3>
+        <p>Paw Pets funds essential vaccinations, surgeries, and check-ups for rescued animals who can't afford to wait.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Stats band -->
+  <section class="stats-band" aria-label="Impact statistics">
+    <div class="stat"><div class="num">42K+</div><div class="label">Pets rehomed since we started</div></div>
+    <div class="stat"><div class="num">180+</div><div class="label">Partner shelters &amp; clinics</div></div>
+    <div class="stat"><div class="num">65</div><div class="label">Cities with active foster networks</div></div>
+    <div class="stat"><div class="num">2030</div><div class="label">Target year for zero-euthanasia shelters</div></div>
+  </section>
+
+  <!-- Wellness pillar detail -->
+  <div class="pillar-row">
+    <div class="pillar-text">
+      <span class="pillar-tag">Wellness</span>
+      <h2>Healthcare that follows every pet home</h2>
+      <p>We're expanding low-cost vet access, preventive care programmes, and emergency funds so no adoption ends because of an unexpected vet bill.</p>
+      <a href="#" class="pillar-link">Explore Wellness initiatives →</a>
+    </div>
+    <div class="pillar-image">
+      <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=900&auto=format&fit=crop" alt="Vet caring for a cat">
+    </div>
+  </div>
+
+  <!-- Community pillar detail -->
+  <div class="pillar-row reverse">
+    <div class="pillar-text">
+      <span class="pillar-tag">Community</span>
+      <h2>Rescue works better when neighbours pitch in</h2>
+      <p>From volunteer training to local adoption fairs and shelter partnerships, we're building a community-powered safety net for animals in every city we reach.</p>
+      <a href="#" class="pillar-link">Explore Community initiatives →</a>
+    </div>
+    <div class="pillar-image">
+      <img src="https://images.unsplash.com/photo-1601979031925-424e53b6caaa?q=80&w=900&auto=format&fit=crop" alt="Volunteers at a pet adoption fair">
+    </div>
+  </div>
+
+  <!-- Report CTA band -->
+  <section class="report-band" id="report">
+    <div class="eyebrow">2025 Impact Report</div>
+    <h2>See how far we've come, and where we're headed for the animals who need us most.</h2>
+    <a href="#" class="report-cta">Download the Report</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-follow">
+        <h4>Follow the pack!</h4>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="Twitter">x</a>
+          <a href="#" aria-label="TikTok">tt</a>
+          <a href="#" aria-label="YouTube">yt</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+        </div>
+        <div class="country-select">🇸🇬 Singapore <span class="caret">▾</span></div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Organization</h5>
+        <ul>
+          <li><a href="#">Our Mission</a></li>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Annual Reports</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Paw Pets Relief Fund</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Get Involved</h5>
+        <ul>
+          <li><a href="#">Adopt a Pet</a></li>
+          <li><a href="#">Become a Foster</a></li>
+          <li><a href="#">Volunteer</a></li>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#">Corporate Giving</a></li>
+          <li><a href="#">Gift a Sponsorship</a></li>
+          <li><a href="#">What's New</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Partners</h5>
+        <ul>
+          <li><a href="#">Shelter Network</a></li>
+          <li><a href="#">Vet Clinic Directory</a></li>
+          <li><a href="#">Paw Academy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#">Pet Care Guides</a></li>
+          <li><a href="#">Adoption FAQ</a></li>
+          <li><a href="#">Vet Care Fund</a></li>
+          <li><a href="#">Donation Portal</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        <a href="#">Terms and Policies</a>
+        <a href="#">Privacy Notice</a>
+      </div>
+      <div>&copy; Paw Pets 2018 - 2026</div>
+      <div class="store-badges">
+        <div class="store-badge">Download on the<b>App Store</b></div>
+        <div class="store-badge">Get it on<b>Google Play</b></div>
+        <div class="store-badge">Explore it on<b>AppGallery</b></div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

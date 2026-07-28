@@ -4,15 +4,16 @@ Static marketing site for Paw Pets. Plain HTML/CSS, no build step required.
 
 ```
 paw-pets-app/
-├── public/
-│   └── index.html        ← the site
-├── vercel.json            ← deploy config (serves /public as the root)
+├── index.html              ← the site (served from repo root)
+├── vercel.json             ← deploy config
 ├── package.json
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml     ← CI workflow that deploys to Vercel on push
+│       └── deploy.yml      ← CI workflow that deploys to Vercel on push
 └── .gitignore
 ```
+
+This is a zero-build static site — `index.html` sits at the project root, so Vercel serves it directly with no output-directory configuration needed.
 
 ## 1. Push this to GitHub
 
@@ -32,9 +33,8 @@ You have two ways to deploy — pick one. Don't set up both, they'll conflict.
 ### Option A — Vercel's native Git integration (simplest, recommended)
 
 1. Go to [vercel.com/new](https://vercel.com/new) and import the GitHub repo.
-2. Framework preset: choose **Other** (it's a static site — no build command needed).
-3. Output directory: `public`.
-4. Deploy. Vercel will now auto-deploy every push to `main` (and generate preview URLs for PRs) on its own — **you can delete `.github/workflows/deploy.yml`** in this case, since Vercel is already watching the repo directly.
+2. Framework preset: choose **Other**. Leave Build Command and Output Directory blank/default — there's nothing to build, `index.html` is served straight from the repo root.
+3. Deploy. Vercel will now auto-deploy every push to `main` (and generate preview URLs for PRs) on its own — **you can delete `.github/workflows/deploy.yml`** in this case, since Vercel is already watching the repo directly.
 
 ### Option B — GitHub Actions workflow (this repo's `deploy.yml`)
 
@@ -64,4 +64,4 @@ Use this if you want deploys to run through GitHub Actions instead of Vercel's o
 npm run dev
 ```
 
-Serves `public/` at `http://localhost:3000`.
+Serves the project root at `http://localhost:3000`.
